@@ -1,0 +1,9 @@
+@base_url = http://localhost:3333/sessions
+
+POST {{base_url}}
+Content-Type: application/json
+
+{
+    "email": "felip22322222e@hospitalpaulista.com.br",
+    "password": "123456789"
+}

@@ -1,12 +1,21 @@
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { compare } from 'bcryptjs'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 import { RegisterUseCase } from './register'
 
 // Testes unitários não devem depender de nada externo, como banco de dados, rede, etc.
+// refatorando para forcar que sempre a base comece zerada
+
+let userRepository: InMemoryUsersRepository
+let sup: RegisterUseCase
 
 describe('Register Use Case', () => {
+    beforeEach(() => {
+        userRepository = new InMemoryUsersRepository()
+        sup = new RegisterUseCase(userRepository)
+    })
+
     it('Usuário criado com sucesso ', async () => {
         const usersRepository = new InMemoryUsersRepository()
         const registerUseCase = new RegisterUseCase(usersRepository)
